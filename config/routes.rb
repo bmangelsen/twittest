@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
-  resources :users, except: [:index, :destroy] do
+  resources :users, only: [:new, :create]
+  resources :posts, except: [:show]
+  resource :userprofile, only: [:show, :edit, :update] do
     member do
-      resources :posts, except: [:show]
+      get "/edit_password", action: :edit_password
+      patch "/edit_password", action: :update_password
     end
   end
 

@@ -1,0 +1,5 @@
+<h4>Here's your profile info:</h1>
+<p>Username: <%= current_user.username %></p>
+<p>Email: <%= current_user.email %></p>
+<%= link_to "Edit Information", edit_userprofile_path %>
+<%= link_to "Edit Password", edit_password_userprofile_path %>

@@ -14,8 +14,20 @@
   </head>
 
   <body>
-    <p><%= notice %></p>
-    <p><%= alert %></p>
-    <%= yield %>
+    <div class="container">
+      <nav class='navbar navbar-default'>
+
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+            <li><%= link_to "Home Page", posts_path %>
+            <li><%= link_to "Log Out", session_path, method: :delete %></li>
+          <% end %>
+        </ul>
+
+      </nav>
+      <p><%= notice %></p>
+      <p><%= alert %></p>
+      <%= yield %>
+    </div>
   </body>
 </html>

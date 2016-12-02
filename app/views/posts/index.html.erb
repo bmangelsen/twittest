@@ -1,0 +1,7 @@
+<h4>Here's <%= @user.username %>'s timeline:</h4>
+  <% if current_user == @user %>
+    <%= link_to "Create Post", new_post_path %>
+    <%= link_to "User Profile", userprofile_path %>
+  <% end %>
+<hr>
+<%= render @posts %>
