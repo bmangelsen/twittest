@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resource :session, only: [:new, :create]
+  resource :session, only: [:new, :create, :destroy]
   resources :users, except: [:index, :destroy] do
     member do
       resources :posts, except: [:show]

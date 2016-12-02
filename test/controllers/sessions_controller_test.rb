@@ -12,7 +12,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "can delete session" do
-
+    new_session(:ben)
+    delete session_path
+    assert_nil session["current_user_id"]
   end
 
+  test "render root view when fail to login" do
+    post session_path, params: { user: { username: "Joe" } }
+    assert_select "h1", "Welcome to Twittest"
+  end
 end

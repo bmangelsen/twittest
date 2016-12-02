@@ -9,7 +9,12 @@ class SessionsController < ApplicationController
       session[:current_user_id] = @user.id
       redirect_to posts_path(@user.id), notice: "Login victory!"
     else
-      redirect_to root_path, alert: "You input something wrong..."
+      render :new, alert: "You input something wrong..."
     end
+  end
+
+  def destroy
+    session.delete("current_user_id")
+    redirect_to root_path
   end
 end
