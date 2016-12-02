@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       session[:current_user_id] = @user.id
       redirect_to posts_path(@user.id), notice: "Login victory!"
     else
-      render :new, alert: "You input something wrong..."
+      redirect_to new_session_path, alert: "You input something wrong..."
     end
   end
 

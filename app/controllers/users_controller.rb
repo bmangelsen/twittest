@@ -11,7 +11,10 @@ class UsersController < ApplicationController
       # UserMailer.sign_up_email(@user).deliver_now
       redirect_to posts_path(@user.id)
     else
-      render :new
+      redirect_to new_user_path, alert:
+        @user.errors.full_messages.each do |error|
+          error
+        end
     end
   end
 

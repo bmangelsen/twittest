@@ -19,6 +19,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "render root view when fail to login" do
     post session_path, params: { user: { username: "Joe" } }
+    follow_redirect!
     assert_select "h1", "Welcome to Twittest"
   end
 end
