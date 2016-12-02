@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first:
+  body: This is first post
+  user: ben
+
+second:
+  body: This is second post
+  user: russell

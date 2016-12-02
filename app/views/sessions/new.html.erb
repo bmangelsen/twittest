@@ -1,0 +1,10 @@
+<h1>Welcome to Twittest</h1>
+<%= form_tag session_path do %>
+  <%= label_tag :username %>
+  <%= text_field_tag :username, nil %>
+
+  <%= label_tag :password %>
+  <%= password_field_tag :password, nil %>
+
+  <%= submit_tag "Log in"%>
+<% end %>
