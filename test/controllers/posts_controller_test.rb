@@ -20,14 +20,34 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "can get edit post view" do
-    # new_session(:ben)
-    # get edit_post_path(posts(:first).id)
-    # assert_select "h4", "Edit the "
+    new_session(:ben)
+    get edit_post_path(posts(:first).id)
+    assert_select "h4", "Update your post's info:"
   end
 
   test "can update post" do
+    new_session(:ben)
+    patch post_path(posts(:first).id), params: { post: { body: "updated!" } }
+    assert_equal "updated!", Post.find(posts(:first).id).body
   end
 
   test "can delete post" do
+    new_session(:ben)
+    delete post_path(posts(:first).id)
+    assert_equal 1, Post.count
+  end
+
+  test "unauthorized to update post for other user" do
+    new_session(:ben)
+    assert_raises CanCan::AccessDenied do
+      patch post_path(posts(:second).id), params: { post: { body: "updated!" } }
+    end
+  end
+
+  test "unauthorized to delete post for other user" do
+    new_session(:ben)
+    assert_raises CanCan::AccessDenied do
+      delete post_path(posts(:second).id)
+    end
   end
 end

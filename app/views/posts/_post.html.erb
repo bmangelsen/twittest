@@ -5,10 +5,10 @@
   </div>
   <div class="col-md-4">
     <% if can? :update, post %>
-      <%= link_to "Edit Post", edit_post_path(@user.id, post.id), class: 'btn btn-sm btn-default' %>
+      <%= link_to "Edit Post", edit_post_path(post.id), class: 'btn btn-sm btn-default' %>
     <% end %>
     <% if can? :delete, post %>
-      <%= link_to "Delete Post", post_path(@user.id, post.id), method: :delete, class: 'btn btn-sm btn-default' %>
+      <%= link_to "Delete Post", post_path(post.id), method: :delete, class: 'btn btn-sm btn-default' %>
     <% end %>
   </div>
 </div>

@@ -22,7 +22,6 @@ class UserprofilesController < ApplicationController
   end
 
   def update_password
-    binding.pry
     if current_user.update(user_params)
       redirect_to userprofile_path
     else

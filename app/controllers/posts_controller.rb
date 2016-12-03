@@ -23,6 +23,27 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      redirect_to edit_post_path(@post.id), alert:
+        @post.errors.full_messages.each do |error|
+          error
+        end
+    end
+  end
+
+  def destroy
+    Post.find(params[:id]).destroy
+    redirect_to posts_path, notice: "Successfully deleted"
+  end
+
   private
   def post_params
     params.require(:post).permit(:body, :user_id)
