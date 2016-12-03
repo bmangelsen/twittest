@@ -3,6 +3,17 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+    @users = User.where(username: params[:search])
+    if @users.empty?
+      begin
+        redirect_to :back, notice: "No users found!"
+      rescue
+        redirect_to root_path, notice: "Especially nope"
+      end
+    end
+  end
+
   def create
     @user = User.new(user_params)
 

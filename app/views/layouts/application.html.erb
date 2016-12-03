@@ -17,14 +17,28 @@
     <div class="container">
       <nav class='navbar navbar-default'>
 
-        <ul class="nav navbar-nav navbar-right">
+        <div id="search">
+          <p>
+            <%= form_tag users_path, method: :get do %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+              <%= submit_tag "Search", name: nil %>
+            <% end %>
+          </p>
+        </div>
+
+        <ul id="options" class="nav navbar-nav navbar-right">
           <% if current_user %>
-            <li><%= link_to "Home Page", posts_path %>
+            <li><%= link_to "Home Page", posts_path(user: current_user) %>
             <li><%= link_to "Log Out", session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Sign in", root_path %></li>
+            <li><%= link_to "Sign up", new_user_path %></li>
           <% end %>
         </ul>
 
       </nav>
+
+
       <p><%= notice %></p>
       <p><%= alert %></p>
       <%= yield %>

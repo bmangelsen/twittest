@@ -1,0 +1,4 @@
+<h4>Here's your search results:</h4>
+<% @users.each do |user| %>
+  <%= link_to "#{user.username}", posts_path(user: user) %>
+<% end %>

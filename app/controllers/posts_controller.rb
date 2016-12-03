@@ -5,8 +5,12 @@ class PostsController < ApplicationController
   end
 
   def index
-    @user = current_user
-    @posts = @posts.where(user_id: @user.id).order(created_at: :desc)
+    if params[:user]
+      @user = User.find(params[:user])
+      @posts = @posts.where(user_id: @user.id).order(created_at: :desc)
+    else
+      redirect_to root_path
+    end
   end
 
   def create

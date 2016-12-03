@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:current_user_id] = @user.id
-      redirect_to posts_path
+      redirect_to posts_path(user: @user)
     else
       redirect_to new_session_path, alert: "You input something wrong..."
     end
