@@ -3,14 +3,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def index
-    @users = User.where(username: params[:search])
-    if @users.empty?
-      begin
-        redirect_to :back, notice: "No users found!"
-      rescue
-        redirect_to root_path, notice: "Especially nope"
-      end
+  def search
+    @user = User.find_by(username: params[:user_search])
+    if @user
+      redirect_to posts_path(user: @user.id)
+    elsif params[:user_search] == ""
+      redirect_to :back
+    else
+      redirect_to :back, notice: "No results found!"
     end
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:current_user_id] = @user.id
-      redirect_to posts_path(@user.id), notice: "Account successfully created!"
+      redirect_to posts_path(user: @user.id), notice: "Account successfully created!"
     else
       redirect_to new_user_path, alert:
         @user.errors.full_messages.each do |error|

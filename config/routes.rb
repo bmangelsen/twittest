@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:index, :new, :create]
-  resources :posts, except: [:show]
+  resources :users, only: [:new, :create] do
+    collection do
+      get 'search'
+    end
+  end
+  resources :posts, except: [:show] do
+    collection do
+      get 'search'
+    end
+  end
   resource :userprofile, only: [:show, :edit, :update] do
     member do
       get "/edit_password", action: :edit_password

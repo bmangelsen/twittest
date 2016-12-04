@@ -13,12 +13,24 @@ class PostsController < ApplicationController
     end
   end
 
+  def search
+    if params[:post_search] == ""
+      redirect_to :back
+    else
+      @user = current_user if current_user
+      @posts = Post.search(params[:post_search])
+      if @posts.empty?
+        redirect_to :back, notice: "No results found!"
+      end
+    end
+  end
+
   def create
     @post = Post.new(post_params)
     @user = current_user
 
     if @post.save
-      redirect_to posts_path(@user.id), notice: "Post successfully created!"
+      redirect_to posts_path(user: @user.id), notice: "Post successfully created!"
     else
       redirect_to new_post_path, alert:
         @post.errors.full_messages.each do |error|
@@ -34,7 +46,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to posts_path
+      redirect_to posts_path(user: current_user)
     else
       redirect_to edit_post_path(@post.id), alert:
         @post.errors.full_messages.each do |error|
@@ -45,7 +57,7 @@ class PostsController < ApplicationController
 
   def destroy
     Post.find(params[:id]).destroy
-    redirect_to posts_path, notice: "Successfully deleted"
+    redirect_to posts_path(user: current_user), notice: "Successfully deleted"
   end
 
   private

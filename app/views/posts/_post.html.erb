@@ -3,12 +3,19 @@
     <%= post.body %>
     <small>- <%= time_ago_in_words(post.created_at) %> ago</small>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-2">
+    <% if current_user && current_user.id != post.user_id %>
+      <%= link_to "#{User.find(post.user_id).username}", posts_path(user: User.find(post.user_id)) %>
+    <% else %>
+      <%= link_to "Your post!", posts_path(user: current_user)%>
+    <% end %>
+  </div>
+  <div class="col-md-2">
     <% if can? :update, post %>
-      <%= link_to "Edit Post", edit_post_path(post.id), class: 'btn btn-sm btn-default' %>
+      <%= link_to "Edit Post", edit_post_path(post.id), class: 'btn btn-sm btn-info' %>
     <% end %>
     <% if can? :delete, post %>
-      <%= link_to "Delete Post", post_path(post.id), method: :delete, class: 'btn btn-sm btn-default' %>
+      <%= link_to "Delete Post", post_path(post.id), method: :delete, class: 'btn btn-sm btn-danger' %>
     <% end %>
   </div>
 </div>

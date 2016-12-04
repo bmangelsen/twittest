@@ -1,0 +1,4 @@
+<% if current_user && current_user == @user %>
+  <%= link_to "Create Post", new_post_path, class: 'btn btn-sm btn-success' %>
+  <%= link_to "User Profile", userprofile_path, class: 'btn btn-sm btn-warning' %>
+<% end %>

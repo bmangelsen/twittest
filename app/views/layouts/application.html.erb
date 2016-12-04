@@ -19,8 +19,17 @@
 
         <div id="search">
           <p>
-            <%= form_tag users_path, method: :get do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+            <%= form_tag search_posts_path, method: :get do %>
+              <%= text_field_tag :post_search, params[:post_search], placeholder: "Search Posts" %>
+              <%= submit_tag "Search", name: nil %>
+            <% end %>
+          </p>
+        </div>
+
+        <div id="search">
+          <p>
+            <%= form_tag search_users_path, method: :get do %>
+              <%= text_field_tag :user_search, params[:user_search], placeholder: "Search Users" %>
               <%= submit_tag "Search", name: nil %>
             <% end %>
           </p>
