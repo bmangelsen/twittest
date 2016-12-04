@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'ffaker'
 gem 'simplecov'
 gem 'cancancan'
+gem 'postmark-rails', '~> 0.15.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
