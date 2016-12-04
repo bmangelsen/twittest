@@ -1,0 +1,18 @@
+<div class="row" id="pages">
+  <div class="col-md-2">
+    <%= link_to "First Page", posts_path(user: @user, page: 0) %> |
+    <%= link_to "Last Page", posts_path(user: @user, page: user_total_pages) %>
+  </div>
+
+  <% if current_page > 0 %>
+    <div class="col-md-2">
+      <%= link_to "Prev Page", posts_path(user: @user, page: current_page - 1)%>
+    </div>
+  <% end %>
+
+  <% if user_total_pages > current_page %>
+    <div class="col-md-2">
+      <%= link_to "Next Page", posts_path(user: @user, page: current_page + 1) %>
+    </div>
+  <% end %>
+</div>

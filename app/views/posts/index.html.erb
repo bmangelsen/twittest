@@ -9,8 +9,9 @@
   <div class="col-md-8">
     Post
   </div>
-  <div class="col-md-2">
+  <div class="col-md-4">
     User
   </div>
 </div>
 <%= render partial: @posts, locals: {user: @user} %>
+<%= render partial: 'user_pages', locals: {user: @user} %>

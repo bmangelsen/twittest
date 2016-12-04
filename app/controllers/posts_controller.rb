@@ -7,7 +7,8 @@ class PostsController < ApplicationController
   def index
     if params[:user]
       @user = User.find(params[:user])
-      @posts = @posts.where(user_id: @user.id).order(created_at: :desc)
+      @per_page = 10.0
+      @posts = @posts.limit(@per_page).offset(@per_page * current_page).where(user_id: @user.id).order(created_at: :desc)
     else
       redirect_to root_path
     end
@@ -18,12 +19,29 @@ class PostsController < ApplicationController
       redirect_to :back
     else
       @user = current_user if current_user
-      @posts = Post.search(params[:post_search])
+      @per_page = 10.0
+      @posts = Post.limit(@per_page).offset(@per_page * current_page).search(params[:post_search]).order(created_at: :desc)
       if @posts.empty?
         redirect_to :back, notice: "No results found!"
       end
     end
   end
+
+  def user_total_pages
+    (@posts.where(user_id: @user.id).count / @per_page).ceil
+  end
+
+  def search_total_pages
+    (@posts.search(params[:post_search]).count / @per_page).ceil
+  end
+
+  def current_page
+    @page = params[:page].to_i
+  end
+
+  helper_method :user_total_pages
+  helper_method :search_total_pages
+  helper_method :current_page
 
   def create
     @post = Post.new(post_params)

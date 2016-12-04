@@ -1,15 +1,19 @@
 <div class="row content">
   <div class="col-md-8">
-    <%= post.body %>
+    <%= word_wrap(post.body) %>
     <small>- <%= time_ago_in_words(post.created_at) %> ago</small>
   </div>
-  <div class="col-md-2">
-    <% if current_user && current_user.id != post.user_id %>
+
+  <% if current_user && current_user.id == post.user_id %>
+    <div class="col-md-2">
+      <%= link_to "Your post", posts_path(user: User.find(post.user_id)) if user %>
+    </div>
+  <% else  %>
+    <div class="col-md-2">
       <%= link_to "#{User.find(post.user_id).username}", posts_path(user: User.find(post.user_id)) %>
-    <% else %>
-      <%= link_to "Your post!", posts_path(user: current_user)%>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+
   <div class="col-md-2">
     <% if can? :update, post %>
       <%= link_to "Edit Post", edit_post_path(post.id), class: 'btn btn-sm btn-info' %>
