@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     begin
       @user.create(user_params)
       session[:current_user_id] = @user.id
-      # UserMailer.sign_up_email(@user).deliver_now
+      UserMailer.sign_up_email(@user).deliver_now
       redirect_to posts_path(user: @user.id), notice: "Account successfully created!"
     rescue
       redirect_to new_user_path, alert:
