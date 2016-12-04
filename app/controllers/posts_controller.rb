@@ -31,10 +31,6 @@ class PostsController < ApplicationController
     (@posts.where(user_id: @user.id).count / @per_page).ceil
   end
 
-  def search_total_pages
-    (@posts.search(params[:post_search]).count / @per_page).ceil
-  end
-
   def current_page
     @page = params[:page].to_i
   end

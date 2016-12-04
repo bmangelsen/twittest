@@ -40,4 +40,20 @@ class UserprofilesControllerTest < ActionDispatch::IntegrationTest
     post session_path, params: { username: "ben", password: "haha" }
     assert_equal users(:ben).id, session["current_user_id"]
   end
+
+  test "redirect to edit user view with alert when user doesn't save on update" do
+    new_session(:ben)
+    patch userprofile_path, params: { user: { username: "" } }
+    follow_redirect!
+    assert flash[:alert]
+    assert_select "h4", "Update your Info:"
+  end
+
+  test "redirect to edit user password view with alert when post doesn't save on update" do
+    new_session(:ben)
+    patch edit_password_userprofile_path, params: { user: { password: "hah", password_confirmation: "haha" } }
+    follow_redirect!
+    assert flash[:alert]
+    assert_select "h4", "Update your password:"
+  end
 end
