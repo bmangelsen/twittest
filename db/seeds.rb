@@ -9,7 +9,7 @@
 
 10.times do
   User.create(username: FFaker::Internet.user_name, email: FFaker::Internet.email, password: "password", password_confirmation: "password")
-  10.times do
-    Post.create(body: "Sweet post bro", user_id: User.last.id)
+  20.times do
+    Post.create(body: FFaker::Tweet.tweet, user_id: User.last.id)
   end
 end
