@@ -15,14 +15,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    begin
-      @user.create(user_params)
+    @user = User.new(user_params)
+
+    if @user.save!
       session[:current_user_id] = @user.id
-      UserMailer.sign_up_email(@user).deliver_now
+      # UserMailer.sign_up_email(@user).deliver_now
       redirect_to posts_path(user: @user.id), notice: "Account successfully created!"
-    rescue
+    else
       redirect_to new_user_path, alert:
-        "Unable to save, please try again. All fields must be filled."
+        @user.errors.full_messages.each do |error|
+          error
+        end
     end
   end
 
