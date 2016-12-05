@@ -39,16 +39,16 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "unauthorized to update post for other user" do
     new_session(:ben)
-    assert_raises CanCan::AccessDenied do
-      patch post_path(posts(:second).id), params: { post: { body: "updated!" } }
-    end
+    patch post_path(posts(:second).id), params: { post: { body: "updated!" } }
+    follow_redirect!
+    assert_match(/You are not authorized to access this page./, response.body)
   end
 
   test "unauthorized to delete post for other user" do
     new_session(:ben)
-    assert_raises CanCan::AccessDenied do
-      delete post_path(posts(:second).id)
-    end
+    delete post_path(posts(:second).id)
+    follow_redirect!
+    assert_match(/You are not authorized to access this page./, response.body)
   end
 
   test "can search for posts and get view" do

@@ -11,12 +11,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "joe", User.last.username
   end
 
-  # test "render new user view with alert when fail to create" do
-  #   post users_path, params: { user: { username: "joe", password: "password", password_confirmation: "password" } }
-  #   follow_redirect!
-  #   assert flash[:alert]
-  #   assert_select "h4", "Enter your user info:"
-  # end
+  test "render new user view with alert when fail to create" do
+    post users_path, params: { user: { username: "joe", password: "password", password_confirmation: "password" } }
+    follow_redirect!
+    assert flash[:alert]
+    assert_select "h4", "Enter your user info:"
+  end
 
   test "can get user post index on search" do
     get search_users_path, params: { user_search: "ben" }
