@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save!
+    if @user.save
       session[:current_user_id] = @user.id
       # UserMailer.sign_up_email(@user).deliver_now
       redirect_to posts_path(user: @user.id), notice: "Account successfully created!"
